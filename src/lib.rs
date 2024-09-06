@@ -530,7 +530,7 @@ pub mod __export {
                 None => Span::call_site(),
             };
 
-            let last = match ts.next() {
+            let last = match ts.last() {
                 Some(t) => t.span(),
                 None => first,
             };
