@@ -2,4 +2,4 @@ error: ...
  --> tests/ui/multiple_tokens.rs:2:1
   |
 2 | type T = ();
-  | ^^^^^^
+  | ^^^^^^^^^^^^
