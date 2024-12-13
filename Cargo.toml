@@ -32,9 +32,13 @@ trybuild = { version = "1.0.99", features = ["diff"] }
 default = ["syn-error"]
 syn-error = ["dep:syn"]
 nightly = []
+detect-nightly = []
 
 [lints.rust]
-unexpected_cfgs = { level = "warn", check-cfg = ['cfg(run_ui_tests)'] }
+unexpected_cfgs = { level = "warn", check-cfg = [
+    'cfg(run_ui_tests)',
+    'cfg(detected_nightly)',
+] }
 
 [lints.clippy]
 pedantic = { level = "warn", priority = -1 }

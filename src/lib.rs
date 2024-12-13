@@ -270,8 +270,10 @@
 //! [`proc-macro2::Span`]: https://docs.rs/proc-macro2/1.0.10/proc_macro2/struct.Span.html
 //! [`ToTokens`]: https://docs.rs/quote/1.0.3/quote/trait.ToTokens.html
 //!
-
-#![cfg_attr(feature = "nightly", feature(proc_macro_diagnostic))]
+#![cfg_attr(
+    any(feature = "nightly", detected_nightly),
+    feature(proc_macro_diagnostic)
+)]
 #![forbid(unsafe_code)]
 
 extern crate proc_macro;
@@ -294,11 +296,11 @@ mod diagnostic;
 mod macros;
 mod sealed;
 
-#[cfg(not(feature = "nightly"))]
+#[cfg(not(any(feature = "nightly", detected_nightly)))]
 #[path = "imp/fallback.rs"]
 mod imp;
 
-#[cfg(feature = "nightly")]
+#[cfg(any(feature = "nightly", detected_nightly))]
 #[path = "imp/delegate.rs"]
 mod imp;
 
