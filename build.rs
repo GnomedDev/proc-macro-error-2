@@ -5,10 +5,10 @@ pub fn main() {
     let rustc_version = std::process::Command::new(rustc)
         .arg("--version")
         .output()
-        .expect("Failed to get rustc version")
-        .stdout;
+        .map(|c| c.stdout)
+        .unwrap_or_default();
 
-    let rustc_version = String::from_utf8(rustc_version).expect("Failed to parse rustc version");
+    let rustc_version = String::from_utf8(rustc_version).unwrap_or_default();
     if rustc_version.contains("nightly") {
         println!("cargo:rustc-cfg=detected_nightly");
     }
