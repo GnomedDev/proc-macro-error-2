@@ -468,6 +468,53 @@ where
     }
 }
 
+/// This function serves as an alternative to the `proc_macro_error` attribute.
+/// It works with `proc_macro2` streams so it gives the same benefits, ie it works
+/// in unit tests.
+///
+/// # Example
+/// ```ignore
+/// #[test]
+/// pub fn proc_macro_test() {
+///     let output = with_proc_macro_error(|| {
+///         proc_macro_impl(quote! { test_token_stream })
+///     });
+///
+///     assert_eq(output.to_string(), quote! { expected_token_stream }.to_string());
+/// }
+///
+/// fn proc_macro_impl(input: proc_macro2::TokenStream) -> proc_macro2::TokenStream {
+///     // actual implementation of the procedural macro
+/// }
+/// ```
+pub fn with_proc_macro_error<F>(f: F) -> proc_macro2::TokenStream
+where
+    F: FnOnce() -> proc_macro2::TokenStream + UnwindSafe,
+{
+    ENTERED_ENTRY_POINT.with(|flag| flag.set(flag.get() + 1));
+    let caught = catch_unwind(f);
+    let dummy = dummy::cleanup();
+    let err_storage = imp::cleanup();
+    ENTERED_ENTRY_POINT.with(|flag| flag.set(flag.get() - 1));
+
+    let gen_error = || quote!( #(#err_storage)* #dummy );
+
+    match caught {
+        Ok(ts) => {
+            if err_storage.is_empty() {
+                ts
+            } else {
+                gen_error()
+            }
+        }
+
+        Err(boxed) => match boxed.downcast::<AbortNow>() {
+            Ok(_) => gen_error(),
+            Err(boxed) => resume_unwind(boxed),
+        },
+    }
+}
+
 fn abort_now() -> ! {
     check_correctness();
     std::panic::panic_any(AbortNow)
