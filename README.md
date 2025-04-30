@@ -3,6 +3,10 @@
 [![docs.rs](https://docs.rs/proc-macro-error2/badge.svg)](https://docs.rs/proc-macro-error2)
 [![unsafe forbidden](https://img.shields.io/badge/unsafe-forbidden-success.svg)](https://github.com/rust-secure-code/safety-dance/)
 
+`proc-macro-error2` is the successor to the unmaintained `proc-macro-error crate`. It is a drop-in replacement that updates dependencies (no syn v1 for example),
+and cleans up clippy warnings. If your minimal supported Rust version is greater than or equal to that of our MSRV policy (see below),
+you can replace `proc-macro-error` with `proc-macro-error2` in your dependencies and `use` statements without needing additional migration work.
+
 This crate aims to make error reporting in proc-macros simple and easy to use.
 Migrate from `panic!`-based errors for as little effort as possible!
 
