@@ -274,7 +274,8 @@
 #![cfg_attr(feature = "nightly", feature(proc_macro_diagnostic))]
 #![forbid(unsafe_code)]
 
-extern crate proc_macro;
+#[doc(hidden)]
+pub extern crate proc_macro;
 
 pub use crate::{
     diagnostic::{Diagnostic, DiagnosticExt, Level},
