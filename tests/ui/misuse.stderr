@@ -9,16 +9,16 @@ error[E0599]: the method `FIRST_ARG_MUST_EITHER_BE_Span_OR_IMPLEMENT_ToTokens_OR
   |
   = note: the following trait bounds were not satisfied:
           `Foo: quote::to_tokens::ToTokens`
-          which is required by `&Foo: ToTokensAsSpanRange`
+          which is required by `&Foo: proc_macro_error2::__export::ToTokensAsSpanRange`
 note: the trait `quote::to_tokens::ToTokens` must be implemented
- --> $CARGO/quote-1.0.37/src/to_tokens.rs
+ --> $CARGO/quote-$VERSION/src/to_tokens.rs
   |
   | pub trait ToTokens {
   | ^^^^^^^^^^^^^^^^^^
   = help: items from traits can only be used if the trait is implemented and in scope
   = note: the following traits define an item `FIRST_ARG_MUST_EITHER_BE_Span_OR_IMPLEMENT_ToTokens_OR_BE_SpanRange`, perhaps you need to implement one of them:
-          candidate #1: `Span2AsSpanRange`
-          candidate #2: `SpanAsSpanRange`
-          candidate #3: `SpanRangeAsSpanRange`
-          candidate #4: `ToTokensAsSpanRange`
+          candidate #1: `proc_macro_error2::__export::Span2AsSpanRange`
+          candidate #2: `proc_macro_error2::__export::SpanAsSpanRange`
+          candidate #3: `proc_macro_error2::__export::SpanRangeAsSpanRange`
+          candidate #4: `proc_macro_error2::__export::ToTokensAsSpanRange`
   = note: this error originates in the macro `$crate::diagnostic` which comes from the expansion of the macro `abort` (in Nightly builds, run with -Z macro-backtrace for more info)
