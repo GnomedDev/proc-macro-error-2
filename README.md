@@ -21,7 +21,7 @@ available on stable ahead of time and your error-reporting code future-proof.
 proc-macro-error2 = "2.0"
 ```
 
-*Supports rustc 1.61 and up*
+*Supports rustc 1.71 and up*
 
 [Documentation and guide][guide]
 
@@ -170,7 +170,7 @@ pub fn make_answer(input: TokenStream) -> TokenStream {
 
 ## MSRV policy
 
-The MSRV is currently `1.61`, and this is considered a breaking change to increase.
+The MSRV is currently `1.71`, and this is considered a breaking change to increase.
 
 However, if an existing dependency requires a higher MSRV without a semver breaking update, this may be raised.
 

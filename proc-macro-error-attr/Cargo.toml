@@ -6,7 +6,7 @@ authors = [
     "GnomedDev <david2005thomas@gmail.com>",
 ]
 edition = "2021"
-rust-version = "1.61"
+rust-version = "1.71"
 description = "Attribute macro for the proc-macro-error2 crate"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/GnomedDev/proc-macro-error-2"

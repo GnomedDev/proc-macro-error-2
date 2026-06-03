@@ -58,54 +58,54 @@
 //!
 //! - `proc_macro_hack`:
 //!
-//!     In order to correctly cooperate with `#[proc_macro_hack]`, `#[proc_macro_error]`
-//!     attribute must be placed *before* (above) it, like this:
+//!   In order to correctly cooperate with `#[proc_macro_hack]`, `#[proc_macro_error]`
+//!   attribute must be placed *before* (above) it, like this:
 //!
-//!     ```no_run
-//!     # use proc_macro2::TokenStream;
-//!     # const IGNORE: &str = "
-//!     #[proc_macro_error]
-//!     #[proc_macro_hack]
-//!     #[proc_macro]
-//!     # ";
-//!     fn my_macro(input: TokenStream) -> TokenStream {
-//!         unimplemented!()
-//!     }
-//!     ```
+//!   ```no_run
+//!   # use proc_macro2::TokenStream;
+//!   # const IGNORE: &str = "
+//!   #[proc_macro_error]
+//!   #[proc_macro_hack]
+//!   #[proc_macro]
+//!   # ";
+//!   fn my_macro(input: TokenStream) -> TokenStream {
+//!       unimplemented!()
+//!   }
+//!   ```
 //!
-//!     If, for some reason, you can't place it like that you can use
-//!     `#[proc_macro_error(proc_macro_hack)]` instead.
+//!   If, for some reason, you can't place it like that you can use
+//!   `#[proc_macro_error(proc_macro_hack)]` instead.
 //!
-//!     # Note
+//!   # Note
 //!
-//!     If `proc-macro-hack` was detected (by any means) `allow_not_macro`
-//!     and `assert_unwind_safe` will be applied automatically.
+//!   If `proc-macro-hack` was detected (by any means) `allow_not_macro`
+//!   and `assert_unwind_safe` will be applied automatically.
 //!
 //! - `allow_not_macro`:
 //!
-//!     By default, the attribute checks that it's applied to a proc-macro.
-//!     If none of `#[proc_macro]`, `#[proc_macro_derive]` nor `#[proc_macro_attribute]` are
-//!     present it will panic. It's the intention - this crate is supposed to be used only with
-//!     proc-macros.
+//!   By default, the attribute checks that it's applied to a proc-macro.
+//!   If none of `#[proc_macro]`, `#[proc_macro_derive]` nor `#[proc_macro_attribute]` are
+//!   present it will panic. It's the intention - this crate is supposed to be used only with
+//!   proc-macros.
 //!
-//!     This setting is made to bypass the check, useful in certain circumstances.
+//!   This setting is made to bypass the check, useful in certain circumstances.
 //!
-//!     Pay attention: the function this attribute is applied to must return
-//!     `proc_macro::TokenStream`.
+//!   Pay attention: the function this attribute is applied to must return
+//!   `proc_macro::TokenStream`.
 //!
-//!     This setting is implied if `proc-macro-hack` was detected.
+//!   This setting is implied if `proc-macro-hack` was detected.
 //!
 //! - `assert_unwind_safe`:
 //!
-//!     By default, your code must be [unwind safe]. If your code is not unwind safe,
-//!     but you believe it's correct, you can use this setting to bypass the check.
-//!     You would need this for code that uses `lazy_static` or `thread_local` with
-//!     `Cell/RefCell` inside (and the like).
+//!   By default, your code must be [unwind safe]. If your code is not unwind safe,
+//!   but you believe it's correct, you can use this setting to bypass the check.
+//!   You would need this for code that uses `lazy_static` or `thread_local` with
+//!   `Cell/RefCell` inside (and the like).
 //!
-//!     This setting is implied if `#[proc_macro_error]` is applied to a function
-//!     marked as `#[proc_macro]`, `#[proc_macro_derive]` or `#[proc_macro_attribute]`.
+//!   This setting is implied if `#[proc_macro_error]` is applied to a function
+//!   marked as `#[proc_macro]`, `#[proc_macro_derive]` or `#[proc_macro_attribute]`.
 //!
-//!     This setting is also implied if `proc-macro-hack` was detected.
+//!   This setting is also implied if `proc-macro-hack` was detected.
 //!
 //! ## Macros
 //!
@@ -136,38 +136,38 @@
 //!
 //! - [`abort!`]:
 //!
-//!     Very much panic-like usage - abort right away and show the error.
-//!     Expands to [`!`] (never type).
+//!   Very much panic-like usage - abort right away and show the error.
+//!   Expands to [`!`] (never type).
 //!
 //! - [`abort_call_site!`]:
 //!
-//!     Shortcut for `abort!(Span::call_site(), ...)`. Expands to [`!`] (never type).
+//!   Shortcut for `abort!(Span::call_site(), ...)`. Expands to [`!`] (never type).
 //!
 //! - [`emit_error!`]:
 //!
-//!     [`proc_macro::Diagnostic`]-like usage - emit the error but keep going,
-//!     looking for other errors to report.
-//!     The compilation will fail nonetheless. Expands to [`()`] (unit type).
+//!   [`proc_macro::Diagnostic`]-like usage - emit the error but keep going,
+//!   looking for other errors to report.
+//!   The compilation will fail nonetheless. Expands to [`()`] (unit type).
 //!
 //! - [`emit_call_site_error!`]:
 //!
-//!     Shortcut for `emit_error!(Span::call_site(), ...)`. Expands to [`()`] (unit type).
+//!   Shortcut for `emit_error!(Span::call_site(), ...)`. Expands to [`()`] (unit type).
 //!
 //! - [`emit_warning!`]:
 //!
-//!     Like `emit_error!` but emit a warning instead of error. The compilation won't fail
-//!     because of warnings.
-//!     Expands to [`()`] (unit type).
+//!   Like `emit_error!` but emit a warning instead of error. The compilation won't fail
+//!   because of warnings.
+//!   Expands to [`()`] (unit type).
 //!
-//!     **Beware**: warnings are nightly only, they are completely ignored on stable.
+//!   **Beware**: warnings are nightly only, they are completely ignored on stable.
 //!
 //! - [`emit_call_site_warning!`]:
 //!
-//!     Shortcut for `emit_warning!(Span::call_site(), ...)`. Expands to [`()`] (unit type).
+//!   Shortcut for `emit_warning!(Span::call_site(), ...)`. Expands to [`()`] (unit type).
 //!
 //! - [`diagnostic`]:
 //!
-//!     Build an instance of `Diagnostic` in format-like style.
+//!   Build an instance of `Diagnostic` in format-like style.
 //!
 //! #### Syntax
 //!
@@ -274,7 +274,7 @@
 #![cfg_attr(feature = "nightly", feature(proc_macro_diagnostic))]
 #![forbid(unsafe_code)]
 
-extern crate proc_macro;
+pub extern crate proc_macro;
 
 pub use crate::{
     diagnostic::{Diagnostic, DiagnosticExt, Level},

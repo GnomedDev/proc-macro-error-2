@@ -18,8 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: rustup toolchain install 1.61
-      - run: cargo +1.61 check --all
+      - run: rustup toolchain install 1.71
+      - run: cargo +1.71 check --all
 
   ui-test:
     runs-on: ubuntu-latest
